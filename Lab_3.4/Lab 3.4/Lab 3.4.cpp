@@ -20,7 +20,7 @@ int main()
 	cout << "y = "; cin >> y;
 	cout << "R = "; cin >> R;
 
-	if ((y <= sqrt(R * R - x * x) && y >= 0) || (y <= 0 && y >= -R))
+	if ((y <= sqrt(R * R - x * x) && y >= 0) || (y <= 0 && y >= -R && x <= 0 && y <= x))
 		cout << "yes" << endl;
 	else
 		cout << "no" << endl;
