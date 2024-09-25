@@ -1,46 +1,52 @@
-// Lab_04_4.cpp
+// Lab_04_5.cpp
 // < Величко Іван >
-// Лабораторна робота № 4.4
+// Лабораторна робота № 4.5
 // Табуляція функції, заданої графіком
 // Варіант 0.4
 
-#include <iostream>
-#include <iomanip>
-#include <cmath>
+#include <iostream>  // Підключення бібліотеки для введення/виведення
+#include <iomanip>   // Підключення бібліотеки для форматування виводу
+#include <cmath>     // Підключення бібліотеки для математичних функцій
 
-using namespace std;
+using namespace std; // Використання простору імен std
 
 int main()
 {
-	double x, y, R; // вхідний параметр
+    double x, y, R; // Змінні для координат (x, y) та радіусу (R)
 
-	srand((unsigned)time(NULL));
+    srand((unsigned)time(NULL)); // Ініціалізація генератора випадкових чисел
 
-	cout << "R = "; cin >> R;
+    cout << "R = "; cin >> R;
 
-	for (int i = 0; i < 2; i++)
-	{
-		cout << "x = "; cin >> x;
-		cout << "y = "; cin >> y;
+    // Цикл для введення координат 10 разів
+    for (int i = 0; i < 10; i++)
+    {
+        cout << "x = "; cin >> x; // Введення координати x
+        cout << "y = "; cin >> y; // Введення координати y
 
-		if ((y <= sqrt(R * R - x * x) && y >= 0) || (y <= 0 && y >= -R && x <= 0 && y <= x))
-			cout << "yes" << endl;
-		else
-			cout << "no" << endl;
-	}
-	cout << endl << fixed;
+        // Перевірка, чи точка (x, y) лежить в області
+        if ((y <= sqrt(R * R - x * x) && y >= 0) || (y <= 0 && y >= -R && x <= 0 && y <= x))
+            cout << "yes" << endl;
+        else
+            cout << "no" << endl;
+    }
+    cout << endl << fixed; // Встановлення фіксованого формату виводу
 
-	
-	for (int i = 0; i < 10; i++)
-	{
-		x = 2 * R * rand() / RAND_MAX - R; // якби було замість R число 6 то стояла б . 
-		y = 2 * R * rand() / RAND_MAX - R; // щоб перевести це число у тип double/float
-		if ((y <= sqrt(R * R - x * x) && y >= 0) || (y <= 0 && y >= -R && x <= 0 && y <= x)) // дісне число
-			cout << setw(8) << setprecision(4) << x << " | "               // проміжок R
-			<< setw(8) << setprecision(4) << y << " |----" << "yes" << endl << "---------|----------|" << endl;
-		else
-			cout << setw(8) << setprecision(4) << x << " | "
-			<< setw(8) << setprecision(4) << y << " |--" << "no" << endl << "---------|----------|" << endl;
-	}
-	return 0;
+    // Цикл для генерації та перевірки випадкових координат
+    for (int i = 0; i < 10; i++)
+    {
+        x = 2 * R * rand() / RAND_MAX - R; // Генерація випадкового x в межах [-R, R]
+        y = 2 * R * rand() / RAND_MAX - R; // Генерація випадкового y в межах [-R, R]
+
+        // Перевірка, чи точка (x, y) лежить в області
+        if ((y <= sqrt(R * R - x * x) && y >= 0) || (y <= 0 && y >= -R && x <= 0 && y <= x))
+            cout << setw(8) << setprecision(4) << x << " | " // Виведення x з форматуванням
+            << setw(8) << setprecision(4) << y << " |----" << "yes" << endl // Якщо в області
+            << "---------|----------|" << endl;
+        else
+            cout << setw(8) << setprecision(4) << x << " | " // Виведення x з форматуванням
+            << setw(8) << setprecision(4) << y << " |--" << "no" << endl // Якщо не в області
+            << "---------|----------|" << endl;
+    }
+    return 0;
 }

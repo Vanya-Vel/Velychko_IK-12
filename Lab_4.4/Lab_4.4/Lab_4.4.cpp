@@ -4,44 +4,59 @@
 // Табуляція функції, заданої графіком
 // Варіант 0.4
 
-#include <iostream>
-#include <iomanip>
-#include <cmath>
+#include <iostream>   // Підключаємо бібліотеку для вводу-виводу
+#include <iomanip>    // Підключаємо бібліотеку для форматування виводу (setw, setprecision)
+#include <cmath>      // Підключаємо математичні функції
 
 using namespace std;
 
 int main()
 {
-	double x, xp, xk, dx, R, y;
+    // Оголошення змінних
+    double x, xp, xk, dx, R, y;
 
-	cout << "R = "; cin >> R;
-	cout << "xp = "; cin >> xp;
-	cout << "xk = "; cin >> xk;
-	cout << "dx = "; cin >> dx;
-	cout << fixed;
-	cout << "------------------------" << endl;
-	cout << "|" << setw(7) << "x   " << " |"     // setw(n) к-ть відступів
-		<< setw(12) << "y     " << " |" << endl;  // setprecision(n) к-ть знаків після коми
-	cout << "|----------------------|" << endl;
-	x = xp;
-	while (x <= xk)
-	{
-		if (x <= 0)
-			y = -R * (x - 6) / 6;
-		else
-			if (x > 0 && x <= R)
-				y = -sqrt(R * R - x * x);
-			else
-				if (x > R && x <= 2 * R)
-					y = sqrt(R * R - (x - 2 * R) * (x - 2 * R));
-				else
-					y = R;
+    // Введення радіуса R, початкового та кінцевого значення x і кроку dx
+    cout << "R = "; cin >> R;
+    cout << "xp = "; cin >> xp;
+    cout << "xk = "; cin >> xk;
+    cout << "dx = "; cin >> dx;
 
-		cout << "|" << setw(10) << setprecision(2) << x
-			<< " |" << setw(12) << setprecision(3) << y
-			<< " |" << endl;
-		x += dx;
-	}
-	cout << "|----------------------|" << endl;
-	return 0;
+    // Встановлюємо фіксований формат виводу, що забезпечує однакову кількість знаків після коми
+    cout << fixed;
+
+    // Виведення заголовку таблиці
+    cout << "------------------------" << endl;
+    cout << "|" << setw(7) << "x   " << " |"        // setw(7) - ширина поля для змінної x
+        << setw(12) << "y     " << " |" << endl;  // setw(12) - ширина поля для функції y
+    cout << "|----------------------|" << endl;
+
+    
+    x = xp;
+
+    // Цикл табуляції функції y
+    while (x <= xk)
+    {
+        
+        if (x <= 0)
+            y = -R * (x - 6) / 6;
+        else if (x > 0 && x <= R)
+            y = -sqrt(R * R - x * x);
+        else if (x > R && x <= 2 * R)
+            y = sqrt(R * R - (x - 2 * R) * (x - 2 * R));
+        else
+            y = R;
+
+        // Виведення значень x та y у вигляді таблиці
+        cout << "|" << setw(10) << setprecision(2) << x    // Виведення x з точністю до 2 знаків після коми
+            << " |" << setw(12) << setprecision(3) << y  // Виведення y з точністю до 3 знаків після коми
+            << " |" << endl;
+
+        // Збільшуємо x на крок dx
+        x += dx;
+    }
+
+    // Завершальна лінія таблиці
+    cout << "|----------------------|" << endl;
+
+    return 0;
 }
