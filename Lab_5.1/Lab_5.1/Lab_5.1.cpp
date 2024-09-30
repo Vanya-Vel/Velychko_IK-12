@@ -21,7 +21,7 @@ int main()
     cout << "q = "; cin >> q;
 
     // Обчислення значення c за допомогою кількох викликів функції k
-    double c = k(1 + p, q * q); //- k(q * p, 1)) / (1 + k(p * p, q));
+    double c = (k(1 + p, q * q) - k(q * p, 1)) / (1 + k(p * p, q));
 
     cout << "c = " << c << endl;
 
@@ -31,5 +31,5 @@ int main()
 // Визначення функції k, яка обчислює вираз на основі параметрів x і y
 double k(const double x, const double y)
 {
-    return ((sin(x) / (y * y)) + (cos(y) / (x * x)));
+    return ((sin(x) / y * y) + (cos(y) / x * x));
 }
