@@ -20,9 +20,9 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
-    <ProjectGuid>{B66EDA28-0216-4157-ABD9-7A2050B9352D}</ProjectGuid>
+    <ProjectGuid>{688FBB14-347F-4C08-9CA0-4BA968676241}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>UnitTestLab51</RootNamespace>
+    <RootNamespace>UnitTestlab61it</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
     <ProjectSubType>NativeUnitTestProject</ProjectSubType>
   </PropertyGroup>
@@ -162,14 +162,14 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="UnitTest_Lab_5.1.cpp" />
+    <ClCompile Include="UnitTest_lab_6.1 it.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Lab_5.0\Lab_5.0.vcxproj">
-      <Project>{047a853e-d899-4977-acbd-91cbfd95a1f9}</Project>
+    <ProjectReference Include="..\Lab_6.1 it\Lab_6.1 it.vcxproj">
+      <Project>{45a1be9a-adeb-4ba5-ad6c-51bb7bd27d2c}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
