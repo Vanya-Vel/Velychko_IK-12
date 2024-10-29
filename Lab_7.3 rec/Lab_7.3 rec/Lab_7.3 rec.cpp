@@ -46,13 +46,6 @@ int main()
     count = 1; // Скидаємо лічильник
     NumberRowMaxSeriesOfIdenticalElements(a, rowCount, colCount, count, max, NumRow);
 
-    // Виведення результатів
-    if (NumRow != -1 && max > 1) {
-        cout << "Row with max series: " << NumRow + 1 << " (length: " << max << ")" << endl;
-    }
-    else {
-        cout << "No identical elements found." << endl;
-    }
 
     // Очищення пам'яті
     for (int i = 0; i < rowCount; i++)
@@ -139,5 +132,14 @@ void NumberRowMaxSeriesOfIdenticalElements(int** a, const int rowCount, const in
             count = 1; // Скидаємо лічильник
             NumberRowMaxSeriesOfIdenticalElements(a, rowCount, colCount, count, max, NumRow, i + 1, 0);
         }
+
     }
+    else if (NumRow != -1 && max > 1) { // Виведення результатів
+        cout << "Row with max series: " << NumRow + 1 << " (length: " << max << ")" << endl;
+    }
+    else if (i == rowCount - 1) {
+        cout << "No identical elements found." << endl;
+    }
+
+    
 }

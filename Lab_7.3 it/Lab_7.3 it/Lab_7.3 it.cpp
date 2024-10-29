@@ -113,7 +113,7 @@ void NumberRowMaxSeriesOfIdenticalElements(int** a, const int rowCount, const in
         // Оновлення max, якщо поточний count більший
         if (max < count)
         {
-            max = count; // Правильне присвоєння
+            max = count;
             NumRow = i; // Запам'ятовуємо номер рядка
         }
     }

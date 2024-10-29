@@ -5,7 +5,7 @@
 // Варіант 3
 
 #include <iostream>
-#include <iomanip>
+#include <iomanip> // фоматування вводу/виводу
 #include <time.h>
 
 using namespace std;
@@ -17,8 +17,6 @@ void Change(int** a, int row1, int row2, int colCount);
 void Number(int** a, const int rowCount, const int colCount, int& number);
 void Sum(int** a, const int rowCount, const int colCount);
 void ModifiedArray(int** a, const int rowCount, const int colCount);
-
-
 
 int main()
 {
