@@ -24,7 +24,8 @@ int Count(char* str, int& k, int i = 0)
 }
 
 // Функція для зміни рядка, замінюючи коми на '**'
-char* Change(const char* str, char* t, int i) {
+char* Change(const char* str, char* t, int i) 
+{
     if (str[i] != 0) 
     {  // Якщо не досягнуто кінця рядка
         if (str[i] == ',') 
