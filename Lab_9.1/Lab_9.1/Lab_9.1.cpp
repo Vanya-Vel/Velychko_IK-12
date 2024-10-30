@@ -18,6 +18,7 @@ using namespace nsDod;
 using namespace nsSum;
 using namespace nsVar;
 
+
 int main()
 {
     // ¬веденн€ початкового та к≥нцевого значень x, кроку dx, та точност≥ eps
