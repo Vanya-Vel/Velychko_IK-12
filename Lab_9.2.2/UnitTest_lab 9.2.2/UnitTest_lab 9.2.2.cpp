@@ -30,7 +30,8 @@ namespace UnitTestlab922
 			// Проходимо через всі тестові випадки
 			for (const auto& testCase : testCases) {
 				// Перевіряємо, чи результат відповідає очікуваному
-				Assert::AreEqual(IS_ALPHABETIC(testCase.character), testCase.expectedResult);
+				Assert::AreEqual(static_cast<bool>(IS_ALPHABETIC(testCase.character)), testCase.expectedResult);
+
 			}
 		}
 
@@ -52,7 +53,7 @@ namespace UnitTestlab922
 			// Проходимо через всі тестові випадки
 			for (const auto& testCase : testCases) {
 				// Перевіряємо, чи результат відповідає очікуваному
-				Assert::AreEqual(IS_DIGIT(testCase.character), testCase.expectedResult);
+				Assert::AreEqual(static_cast<bool>IS_DIGIT(testCase.character), testCase.expectedResult);
 			}
 		}
 	};

@@ -1,13 +1,20 @@
-#include <iostream>
-#include <string>
-#include <iomanip>
-#include <windows.h>  // Для підтримки кирилиці в консолі
+#include <iostream>         // Бібліотека для вводу/виводу
+#include <string>           // Бібліотека для роботи зі строками
+#include <iomanip>          // Бібліотека для форматування виводу
+#include <windows.h>        // Для підтримки кирилиці в консолі
 
 using namespace std;
 
-enum Speciality { COMPUTER_SCIENCE, MATHEMATICS_AND_ECONOMICS, PHYSICS_AND_INFORMATICS, EDUCATION, INFORMATICS };
+// Перерахування для спеціальностей
+enum Speciality {
+    COMPUTER_SCIENCE,
+    MATHEMATICS_AND_ECONOMICS,
+    PHYSICS_AND_INFORMATICS,
+    EDUCATION,
+    INFORMATICS
+};
 
-// Об'єднання для третьої оцінки в залежності від спеціальності
+// Об'єднання для зберігання третьої оцінки, залежної від спеціальності
 union Grade {
     int physicsGrade;           // Оцінка з фізики
     int programmingGrade;       // Оцінка з програмування (для "Комп’ютерні науки")
@@ -28,20 +35,21 @@ struct Student {
 
 // Функція для обчислення середнього балу студента
 void calculateAverage(Student& student) {
-    if (student.speciality == COMPUTER_SCIENCE)
+    if (student.speciality == COMPUTER_SCIENCE) // Якщо спеціальність - "Комп’ютерні науки"
         student.averageGrade = (student.physicsGrade + student.mathGrade + student.thirdGrade.programmingGrade) / 3.0;
-    else if (student.speciality == INFORMATICS)
+    else if (student.speciality == INFORMATICS) // Якщо спеціальність - "Інформатика"
         student.averageGrade = (student.physicsGrade + student.mathGrade + student.thirdGrade.numericalMethodsGrade) / 3.0;
-    else
+    else // Для інших спеціальностей
         student.averageGrade = (student.physicsGrade + student.mathGrade + student.thirdGrade.pedagogyGrade) / 3.0;
 
-    student.averageGrade = round(student.averageGrade * 100) / 100.0; // Округлюємо до 2 знаків після коми
+    student.averageGrade = round(student.averageGrade * 100) / 100.0; // Округлення до 2 знаків після коми
 }
 
-// Сортування студентів за спеціальністю та середнім балом
+// Функція для сортування студентів за спеціальністю та середнім балом
 void sortStudents(Student students[], int count) {
     for (int i = 0; i < count - 1; i++) {
         for (int j = 0; j < count - i - 1; j++) {
+            // Сортування за спеціальністю, середнім балом та прізвищем
             if (students[j].speciality > students[j + 1].speciality ||
                 (students[j].speciality == students[j + 1].speciality && students[j].averageGrade < students[j + 1].averageGrade) ||
                 (students[j].speciality == students[j + 1].speciality && students[j].averageGrade == students[j + 1].averageGrade && students[j].lastName > students[j + 1].lastName)) {
@@ -64,6 +72,7 @@ bool binarySearchStudent(Student students[], int count, const string& lastName, 
             return true;
         }
 
+        // Вибір меж для наступної ітерації залежно від критеріїв
         if (students[mid].speciality < speciality ||
             (students[mid].speciality == speciality && students[mid].averageGrade < averageGrade) ||
             (students[mid].speciality == speciality && students[mid].averageGrade == averageGrade && students[mid].lastName < lastName)) {
@@ -76,7 +85,7 @@ bool binarySearchStudent(Student students[], int count, const string& lastName, 
     return false;
 }
 
-// Введення даних про студентів
+// Функція для введення даних про студентів
 void inputStudentData(Student students[], int& count) {
     cout << "Введіть кількість студентів: ";
     cin >> count;
@@ -98,7 +107,7 @@ void inputStudentData(Student students[], int& count) {
         cout << "Введіть оцінку з математики: ";
         cin >> students[i].mathGrade;
 
-        // Введення третьої оцінки в залежності від спеціальності
+        // Введення третьої оцінки залежно від спеціальності
         if (students[i].speciality == COMPUTER_SCIENCE) {
             cout << "Введіть оцінку з програмування: ";
             cin >> students[i].thirdGrade.programmingGrade;
@@ -117,7 +126,7 @@ void inputStudentData(Student students[], int& count) {
     }
 }
 
-// Виведення таблиці студентів
+// Функція для виведення таблиці студентів
 void printStudents(Student students[], int count) {
     cout << left << setw(4) << "ID"
         << setw(15) << "Прізвище"
@@ -161,8 +170,8 @@ void printStudents(Student students[], int count) {
 }
 
 int main() {
-    SetConsoleCP(1251);
-    SetConsoleOutputCP(1251);
+    SetConsoleCP(1251);           // Налаштування кириличної кодування для вводу
+    SetConsoleOutputCP(1251);     // Налаштування кириличної кодування для виводу
 
     int count;
     Student students[100];  // Максимальна кількість студентів = 100

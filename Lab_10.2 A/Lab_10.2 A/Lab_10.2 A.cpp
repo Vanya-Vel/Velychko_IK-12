@@ -11,6 +11,7 @@
 
 using namespace std;
 
+// Перелік спеціальностей
 enum Speciality { COMPUTER_SCIENCE, MATHEMATICS, PHYSICS };
 
 // Структура для зберігання інформації про студента
@@ -26,18 +27,22 @@ struct Student {
 
 // Функція для обчислення середнього балу студента
 double calculateAverage(const Student& student) {
-    // Округлює середнє значення до 2 знаків після коми
+    // Обчислює середнє значення оцінок з фізики, математики та інформатики,
+    // округлене до двох знаків після коми.
     return round((student.physicsGrade + student.mathGrade + student.informaticsGrade) / 3.0 * 100) / 100.0;
 }
 
-// Сортування студентів за спеціальністю, середнім балом та прізвищем
+// Функція для сортування студентів за спеціальністю, середнім балом і прізвищем
 void sortStudents(Student students[], int count) {
+    // Сортування за алгоритмом "бульбашка", використовуючи три критерії:
+    // спеціальність, середній бал і прізвище.
     for (int i = 0; i < count - 1; i++) {
         for (int j = 0; j < count - i - 1; j++) {
-            // Порівнюються спеціальність, середній бал і прізвище
+            // Порівняння спеціальності, середнього балу та прізвища
             if (students[j].speciality > students[j + 1].speciality ||
                 (students[j].speciality == students[j + 1].speciality && calculateAverage(students[j]) > calculateAverage(students[j + 1])) ||
                 (students[j].speciality == students[j + 1].speciality && calculateAverage(students[j]) == calculateAverage(students[j + 1]) && students[j].lastName > students[j + 1].lastName)) {
+                // Обмін місцями студентів у разі порушення порядку
                 Student temp = students[j];
                 students[j] = students[j + 1];
                 students[j + 1] = temp;
@@ -46,22 +51,23 @@ void sortStudents(Student students[], int count) {
     }
 }
 
-// Функція для побудови індексного масиву, який містить індекси студентів
+// Функція для побудови індексного масиву
 void indexSortStudents(Student students[], int indexArray[], int count) {
-    // Заповнення індексного масиву
+    // Заповнення індексного масиву номерами студентів
     for (int i = 0; i < count; i++) {
         indexArray[i] = i;
     }
 
-    // Сортування індексного масиву за тими ж критеріями, що й сортовані студенти
+    // Сортування індексного масиву за тими ж критеріями, що й масив студентів
     for (int i = 0; i < count - 1; i++) {
         for (int j = 0; j < count - i - 1; j++) {
             int index1 = indexArray[j];
             int index2 = indexArray[j + 1];
-            // Порівняння індексів за тим же принципом, що й сортування студентів
+            // Порівняння студентів через індекси масиву
             if (students[index1].speciality > students[index2].speciality ||
                 (students[index1].speciality == students[index2].speciality && calculateAverage(students[index1]) > calculateAverage(students[index2])) ||
                 (students[index1].speciality == students[index2].speciality && calculateAverage(students[index1]) == calculateAverage(students[index2]) && students[index1].lastName > students[index2].lastName)) {
+                // Обмін індексів для зміни порядку у масиві
                 int temp = indexArray[j];
                 indexArray[j] = indexArray[j + 1];
                 indexArray[j + 1] = temp;
@@ -70,17 +76,17 @@ void indexSortStudents(Student students[], int indexArray[], int count) {
     }
 }
 
-// Бінарний пошук студента за прізвищем, спеціальністю та середнім балом
+// Функція для бінарного пошуку студента за прізвищем, спеціальністю та середнім балом
 bool binarySearchStudent(Student students[], int count, const string& lastName, Speciality speciality, double average) {
-    int left = 0, right = count - 1; // Межі пошуку: left — це початок масиву, а right — це кінець масиву
+    int left = 0, right = count - 1; // Межі пошуку у відсортованому масиві
     while (left <= right) {
-        int mid = left + (right - left) / 2;
+        int mid = left + (right - left) / 2; // Середина відрізку
         double studentAvg = calculateAverage(students[mid]);
-        // Перевірка на збіг прізвища, спеціальності та середнього балу
+        // Якщо знайшли студента, що відповідає критеріям
         if (students[mid].speciality == speciality && studentAvg == average && students[mid].lastName == lastName) {
             return true;
         }
-        // Пошук студента, порівнюючи критерії
+        // Якщо шуканий студент має бути далі за середину
         if (students[mid].speciality < speciality ||
             (students[mid].speciality == speciality && studentAvg < average) ||
             (students[mid].speciality == speciality && studentAvg == average && students[mid].lastName < lastName)) {
@@ -90,10 +96,10 @@ bool binarySearchStudent(Student students[], int count, const string& lastName, 
             right = mid - 1;
         }
     }
-    return false;
+    return false; // Студент не знайдений
 }
 
-// Введення даних про студентів
+// Функція для введення даних про студентів
 void inputStudentData(Student students[], int& count) {
     cout << "Введіть кількість студентів: ";
     cin >> count;
@@ -124,7 +130,7 @@ void inputStudentData(Student students[], int& count) {
     }
 }
 
-// Виведення таблиці студентів
+// Функція для виведення даних студентів у вигляді таблиці
 void printStudents(Student students[], int count) {
     // Виведення заголовків таблиці
     cout << left << setw(4) << "ID"
@@ -136,7 +142,7 @@ void printStudents(Student students[], int count) {
         << setw(12) << "Інформатика" << endl;
     cout << string(72, '-') << endl;
 
-    // Виведення даних студентів
+    // Виведення даних для кожного студента
     for (int i = 0; i < count; ++i) {
         cout << left << setw(4) << students[i].id
             << setw(15) << students[i].lastName
@@ -150,22 +156,22 @@ void printStudents(Student students[], int count) {
 }
 
 int main() {
-    // Підтримка кирилиці в консолі
-    SetConsoleCP(1251);          // Встановлення сторінки win-cp1251 для вводу
-    SetConsoleOutputCP(1251);    // Встановлення сторінки win-cp1251 для виводу
+    // Налаштування підтримки кирилиці в консолі
+    SetConsoleCP(1251);          // Установка кодування для введення
+    SetConsoleOutputCP(1251);    // Установка кодування для виведення
 
     int count;
-    Student students[100];  // Максимальна кількість студентів = 100
+    Student students[100];  // Масив студентів, максимальна кількість 100
 
-    inputStudentData(students, count);  // Введення даних про студентів
+    inputStudentData(students, count);  // Введення даних студентів
 
     sortStudents(students, count);  // Сортування студентів
     printStudents(students, count); // Виведення таблиці студентів
 
-    int indexArray[100];  // Індексний масив для 100 студентів
+    int indexArray[100];  // Індексний масив для збереження порядку студентів
     indexSortStudents(students, indexArray, count);  // Сортування індексів
 
-    // Перевірка наявності студента за допомогою бінарного пошуку
+    // Пошук студента з заданими критеріями
     string lastName;
     Speciality speciality;
     double average;
@@ -176,6 +182,8 @@ int main() {
     int specialityChoice;
     cout << "Виберіть спеціальність для пошуку (0 - Комп'ютерні науки, 1 - Математика, 2 - Фізика): ";
     cin >> specialityChoice;
+    // перетворює ціле число specialityChoice до типу Speciality за допомогою static_cast.
+    // Це означає, що введене число тепер зберігається як значення перерахування Speciality, а не просто як число.
     speciality = static_cast<Speciality>(specialityChoice);
 
     cout << "Введіть середній бал для пошуку: ";

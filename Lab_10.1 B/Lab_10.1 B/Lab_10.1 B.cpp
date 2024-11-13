@@ -21,6 +21,7 @@ enum class Speciality {
 };
 
 // Функція для перетворення спеціальності у текстовий формат
+// Перетворює значення переліку спеціальностей у відповідний текстовий рядок для відображення.
 string getSpecialityName(Speciality speciality) {
     switch (speciality) {
     case Speciality::COMPUTER_SCIENCE: return "Комп'ютерні науки";
@@ -40,14 +41,15 @@ struct Student {
     Speciality speciality;     // Спеціальність студента
     int physicsGrade;          // Оцінка з фізики
     int mathGrade;             // Оцінка з математики
-    union {
+    union {                    // Об'єднання для збереження оцінки з третього предмету
         int programmingGrade;  // Оцінка з програмування (для COMPUTER_SCIENCE)
         int numericalMethodsGrade; // Оцінка з чисельних методів (для INFORMATICS)
         int pedagogyGrade;     // Оцінка з педагогіки (для інших спеціальностей)
-    } additionalGrade;         // Об'єднання для третьої оцінки
+    } additionalGrade;         // Додаткова оцінка залежно від спеціальності
 };
 
 // Функція для виведення таблиці з інформацією про студентів
+// Виводить на екран таблицю з усіма студентами, включно з їхніми оцінками
 void printStudentTable(const Student students[], int size) {
     cout << left << setw(4) << "ID"
         << setw(15) << "Прізвище"
@@ -55,8 +57,8 @@ void printStudentTable(const Student students[], int size) {
         << setw(25) << "Спеціальність"
         << setw(8) << "Фізика"
         << setw(12) << "Математика"
-        << setw(15) << "Програмування" 
-        << setw(17) << "Чисельні методи" 
+        << setw(15) << "Програмування"
+        << setw(17) << "Чисельні методи"
         << setw(10) << "Педагогіка" << endl;
     cout << string(112, '-') << endl;
 
@@ -68,7 +70,7 @@ void printStudentTable(const Student students[], int size) {
             << setw(8) << students[i].physicsGrade
             << setw(12) << students[i].mathGrade;
 
-        // Вивід додаткової оцінки залежно від спеціальності
+        // Виведення додаткової оцінки залежно від спеціальності
         if (students[i].speciality == Speciality::COMPUTER_SCIENCE) {
             cout << setw(15) << students[i].additionalGrade.programmingGrade
                 << setw(17) << "-"  // Порожнє місце для чисельних методів
@@ -90,26 +92,29 @@ void printStudentTable(const Student students[], int size) {
 }
 
 // Функція для виведення студентів без трійок
+// Виводить студентів, у яких немає оцінок "3" з будь-якого предмета
 void printStudentsWithoutThrees(const Student students[], int size) {
     cout << "\nСтуденти, які вчаться без трійок:\n";
     cout << left << setw(15) << "Прізвище" << setw(10) << "Курс" << setw(20) << "Спеціальність" << endl;
     cout << string(46, '-') << endl;
     for (int i = 0; i < size; ++i) {
-        if (students[i].physicsGrade >= 4 && 
-            students[i].mathGrade >= 4 && 
-            students[i].additionalGrade.programmingGrade >= 4 &&
-            students[i].additionalGrade.numericalMethodsGrade >= 4 &&
-            students[i].additionalGrade.pedagogyGrade >= 4) {
+        // Перевірка оцінок, щоб переконатися, що жодна з них не є "3"
+        if (students[i].physicsGrade >= 4 &&
+            students[i].mathGrade >= 4 &&
+            (students[i].speciality == Speciality::COMPUTER_SCIENCE ? students[i].additionalGrade.programmingGrade >= 4 :
+                students[i].speciality == Speciality::INFORMATICS ? students[i].additionalGrade.numericalMethodsGrade >= 4 :
+                students[i].additionalGrade.pedagogyGrade >= 4)) {
             cout << left << setw(15) << students[i].surname
-                 << setw(10) << students[i].course
-                 << setw(20) << getSpecialityName(students[i].speciality)
-                 << endl;
+                << setw(10) << students[i].course
+                << setw(20) << getSpecialityName(students[i].speciality)
+                << endl;
         }
     }
     cout << string(46, '-') << endl;
 }
 
 // Функція для підрахунку студентів з оцінкою "5" з фізики
+// Підраховує кількість студентів, які отримали максимальну оцінку з фізики
 void countStudentsWithFiveInPhysics(const Student students[], int size, int& count) {
     for (int i = 0; i < size; ++i) {
         if (students[i].physicsGrade == 5) {
@@ -124,6 +129,7 @@ int main() {
     SetConsoleOutputCP(1251);    // Встановлення сторінки win-cp1251 для виводу
 
     const int studentCount = 5; // Кількість студентів
+    // Ініціалізація масиву студентів з різними спеціальностями та оцінками
     Student students[studentCount] = {
         {1, "Іваненко", 1, Speciality::COMPUTER_SCIENCE, 5, 4},
         {2, "Петренко", 2, Speciality::INFORMATICS, 4, 4},
@@ -132,7 +138,7 @@ int main() {
         {5, "Гриценко", 2, Speciality::LABOR_TRAINING, 4, 3}
     };
 
-    // Ініціалізація додаткових оцінок
+    // Ініціалізація додаткових оцінок для кожного студента
     students[0].additionalGrade.programmingGrade = 5;
     students[1].additionalGrade.numericalMethodsGrade = 4;
     students[2].additionalGrade.pedagogyGrade = 5;

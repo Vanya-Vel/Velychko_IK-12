@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <windows.h> 
 
 using namespace std;
 
@@ -21,6 +22,8 @@ void loadFromFile(Resident*& residents, int& count, const string& filename); // 
 void saveToFile(const Resident* residents, int count, const string& filename); // Зберігає дані у файл
 
 int main() {
+    SetConsoleCP(1251);           // Налаштування кириличної кодування для вводу
+    SetConsoleOutputCP(1251);     // Налаштування кириличної кодування для виводу
     Resident* residents = nullptr;  // Динамічний масив мешканців
     int count = 0;                  // Кількість мешканців
     const int maxRooms = 15;        // Максимальна кількість кімнат
@@ -169,7 +172,7 @@ void findResident(const Resident* residents, int count) {
 
 // Завантажує дані про мешканців з файлу
 void loadFromFile(Resident*& residents, int& count, const string& filename) {
-    ifstream file(filename);
+    ifstream file(filename); // дозволяє зчитувати дані з файлів
     if (!file) {
         cout << "Не вдалося відкрити файл.\n";
         return;
@@ -185,7 +188,7 @@ void loadFromFile(Resident*& residents, int& count, const string& filename) {
 
 // Зберігає всі дані про мешканців у файл
 void saveToFile(const Resident* residents, int count, const string& filename) {
-    ofstream file(filename);
+    ofstream file(filename); // використовується для запису даних у файл
     if (!file) {
         cout << "Не вдалося відкрити файл для запису.\n";
         return;
