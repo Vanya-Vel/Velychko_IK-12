@@ -1,17 +1,17 @@
 #include "pch.h"
 #include "CppUnitTest.h"
 #include <fstream>
-#include "../Lab_12.2 A/Lab_12.2 A.cpp"
+#include "../Lab_12.2 B/Lab_12.2 B.cpp"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
-namespace UnitTestLab122A
+namespace UnitTestLab122B
 {
-	TEST_CLASS(UnitTestLab122A)
+	TEST_CLASS(UnitTestLab122B)
 	{
 	public:
 		
-        TEST_METHOD(Test_CountPhysicsFive)
+		TEST_METHOD(Test_CountPhysicsFive)
         {
             const char* filename = "List_file.bin";
 
